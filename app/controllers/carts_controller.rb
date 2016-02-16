@@ -10,6 +10,7 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+
   end
 
   # GET /carts/new
@@ -54,17 +55,29 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
+    @cart = current_cart
     @cart.destroy
+    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to store_index_url, notice: 'Теперь ваша корзина пуста!'}
+     # format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
+      format.json { head :ok }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
+       begin
       @cart = Cart.find(params[:id])
+      
+     
+      rescue ActiveRecord::RecordNotFound
+      logger.error "Попытка доступа к несуществеющей корзине #{params[:id]}"
+      redirect_to store_index_url, notice: 'Несуществующая корзина'
+      else
+        
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -6,10 +6,13 @@ class StoreController < ApplicationController
   	session[:counter]+=1
   end
 
+
+
   def index
   	@products = Product.order(:title)
-  	
+ 
   	@counter  = coun_t
  @shown_message = "You've been here #{@counter} times" unless @counter <5
+ 
   end
 end
