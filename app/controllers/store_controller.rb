@@ -10,7 +10,7 @@ class StoreController < ApplicationController
 
   def index
   	@products = Product.order(:title)
- 
+    @cart = current_cart
   	@counter  = coun_t
  @shown_message = "You've been here #{@counter} times" unless @counter <5
  
