@@ -60,7 +60,7 @@ class CartsController < ApplicationController
     @cart.destroy
     session[:cart_id] = nil
     respond_to do |format|
-      format.html {redirect_to store_index_url, notice: 'Теперь ваша корзина пуста!'}
+      format.html {redirect_to store_index_url}
      # format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
       format.json { head :ok }
     end
